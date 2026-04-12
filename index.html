@@ -1,668 +1,449 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Многообразие насекомых · 3 класс (ЗПР 7.1)</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Arial', 'Helvetica', sans-serif;
-            background: #e8f5e9;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            margin: 0;
-        }
-        .app-container {
-            max-width: 950px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 40px;
-            box-shadow: 0 15px 30px rgba(0, 40, 0, 0.2);
-            padding: 24px 24px 32px;
-            border: 3px solid #4caf50;
-            transition: all 0.2s;
-        }
-        h1, h2 {
-            color: #1b5e20;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        h1 { font-size: 2.3rem; margin: 5px 0 10px; text-shadow: 2px 2px 0 #c8e6c9; }
-        h2 { font-size: 1.8rem; margin: 15px 0 10px; border-bottom: 3px dotted #81c784; padding-bottom: 8px; }
-        .screen { display: block; }
-        .hidden { display: none !important; }
-        .slide-area {
-            background: #f1f8e9;
-            border-radius: 30px;
-            padding: 20px 20px 25px;
-            margin: 10px 0 20px;
-            border: 2px solid #a5d6a7;
-            box-shadow: inset 0 0 0 2px #ffffff, 0 8px 0 #2e7d32;
-        }
-        .slide-content {
-            min-height: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .slide-text {
-            font-size: 1.8rem;
-            line-height: 1.4;
-            text-align: center;
-            color: #1e3a1e;
-            margin: 15px 0;
-            font-weight: 600;
-            background: #fff9c4;
-            padding: 20px 15px;
-            border-radius: 50px;
-            border: 2px solid #f9a825;
-            width: 100%;
-            box-shadow: 0 4px 0 #b26a00;
-        }
-        .slide-icon { font-size: 5rem; margin: 5px 0; }
-        .fact-badge {
-            background: #ffecb3;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 1.5rem;
-            border: 2px solid #ffa000;
-            color: #3e2723;
-            margin-top: 10px;
-        }
-        .stages {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            margin: 20px 0 10px;
-            flex-wrap: wrap;
-        }
-        .stage-item {
-            background: #e1f5fe;
-            border-radius: 30px;
-            padding: 15px 10px;
-            min-width: 120px;
-            text-align: center;
-            border: 2px solid #0288d1;
-            box-shadow: 0 5px 0 #0277bd;
-            font-weight: bold;
-        }
-        .stage-emoji { font-size: 3.5rem; display: block; }
-        .stage-text { font-size: 1.5rem; color: #01579b; }
-        .arrow-symbol { font-size: 3rem; color: #f57c00; font-weight: bold; }
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-            gap: 12px;
-        }
-        button {
-            background: #4caf50;
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 1.8rem;
-            padding: 16px 30px;
-            border-radius: 60px;
-            cursor: pointer;
-            box-shadow: 0 7px 0 #1b5e20;
-            transition: 0.07s;
-            border: 2px solid #a5d6a7;
-            flex: 1;
-            text-align: center;
-            min-width: 120px;
-            letter-spacing: 2px;
-        }
-        button.small-btn {
-            font-size: 1.5rem;
-            padding: 12px 20px;
-            box-shadow: 0 5px 0 #1b5e20;
-        }
-        button:active {
-            transform: translateY(5px);
-            box-shadow: 0 2px 0 #1b5e20;
-        }
-        button:disabled {
-            opacity: 0.5;
-            transform: none;
-            box-shadow: 0 7px 0 #1b5e20;
-            pointer-events: none;
-        }
-        .speak-btn {
-            background: #ff9800;
-            box-shadow: 0 5px 0 #b85e00;
-            border-color: #ffe0b2;
-            font-size: 1.5rem;
-            padding: 10px 25px;
-            flex: 0.5;
-        }
-        .test-container {
-            background: #e1f5fe;
-            border-radius: 30px;
-            padding: 20px;
-            border: 3px solid #0288d1;
-            margin-top: 15px;
-        }
-        .question {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #01579b;
-            margin-bottom: 25px;
-            text-align: center;
-            background: #b3e5fc;
-            padding: 15px;
-            border-radius: 30px;
-        }
-        .options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-        .option-btn {
-            background: #ffffff;
-            color: #1e3a1e;
-            box-shadow: 0 5px 0 #78909c;
-            border: 3px solid #4fc3f7;
-            font-size: 1.6rem;
-            padding: 18px 5px;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: 0.1s;
-            text-align: center;
-        }
-        .option-btn.selected {
-            background: #ffd54f;
-            border: 4px solid #f57f17;
-            box-shadow: 0 3px 0 #b26a00;
-            transform: translateY(2px);
-        }
-        .feedback {
-            font-size: 1.8rem;
-            padding: 10px;
-            text-align: center;
-            border-radius: 40px;
-            margin: 15px 0;
-            font-weight: bold;
-        }
-        .correct-feedback { background: #c8e6c9; color: #1b5e20; }
-        .wrong-feedback { background: #ffcdd2; color: #b71c1c; }
-        .test-nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .result-screen {
-            text-align: center;
-            font-size: 2.5rem;
-            padding: 20px;
-        }
-        .counter {
-            font-size: 1.4rem;
-            color: #33691e;
-            text-align: right;
-            margin-bottom: 5px;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            margin: 15px 0;
-        }
-        .card {
-            background: #fff9c4;
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            border: 2px solid #f9a825;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .slide-text { font-size: 1.4rem; }
-            button { font-size: 1.4rem; padding: 14px 10px; }
-            .options { grid-template-columns: 1fr; }
-            .stage-item { min-width: 90px; }
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>🧠 ЕГЭ: Миссия «Спокоен» | Полный тренинг</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%); /* Более строгий фон */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      padding: 12px;
+      margin: 0;
+      color: #e2e8f0;
+    }
+    .app-card {
+      max-width: 750px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95); /* Тёмная карточка */
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 20px 20px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+      border: 1px solid #2d3748;
+      display: flex;
+      flex-direction: column;
+      height: 680px;
+      max-height: 95vh;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 4px; color: #facc15; display: flex; align-items: center; gap: 6px; }
+    .subhead { font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px; border-left: 4px solid #4f9da6; padding-left: 12px; }
+    .live-score-container { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+    .live-score-badge { background: #facc15; padding: 6px 14px; border-radius: 30px; font-weight: 700; color: #0f172a; box-shadow: 0 3px 0 #b45309; font-size: 0.9rem; }
+    .content-area { flex-grow: 1; overflow-y: visible; margin-bottom: 10px; }
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+    .slide-container { height: 100%; }
+    .slide { display: none; height: 100%; }
+    .slide.active { display: flex; flex-direction: column; }
+    .nav-buttons { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid #2d3748; }
+    button {
+      background: #2563eb; border: none; color: white; font-weight: 700; padding: 10px 20px;
+      border-radius: 40px; font-size: 0.95rem; border-bottom: 3px solid #1e40af; cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3); min-width: 110px;
+    }
+    button:active { transform: translateY(2px); border-bottom-width: 2px; }
+    button:disabled { opacity: 0.6; transform: none; cursor: not-allowed; }
+    button.outline { background: transparent; color: #93c5fd; border: 2px solid #475569; }
+    button.secondary { background: #059669; border-bottom-color: #047857; }
+    .stat-card { background: #1e293b; color: white; border-radius: 16px; padding: 14px; margin: 8px 0; }
+    .stat-highlight { font-size: 2rem; font-weight: 800; color: #facc15; }
+    .tool-card { background: #1e293b; border-radius: 20px; padding: 14px 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); border: 1px solid #334155; margin: 8px 0; }
+    .tool-title { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #facc15; }
+    .quote-box { background: #164a5f; padding: 10px 14px; border-radius: 16px; margin: 8px 0; border-left: 5px solid #facc15; font-size: 0.9rem; color: #e2e8f0; }
+    .badge { background: #2563eb; border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; color: white; }
+    .flex-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
+    .footer-note { margin-top: 6px; color: #64748b; font-size: 0.7rem; text-align: center; }
+    .progress-indicator { font-weight: 600; margin-bottom: 6px; color: #94a3b8; font-size: 0.9rem; }
+    ul { padding-left: 18px; }
+    li { margin-bottom: 2px; }
+    p { margin-bottom: 6px; }
+    h2 { font-size: 1.3rem; margin-bottom: 8px; color: #facc15; }
+    .test-options button { padding: 6px 12px; font-size: 0.9rem; margin: 3px; background: #334155; color: #e2e8f0; }
+    .test-options button.selected { background: #2563eb; color: white; }
+  </style>
 </head>
 <body>
-<div class="app-container" id="appContainer">
-    <h1><i class="fas fa-bug"></i> НАСЕКОМЫЕ <i class="fas fa-butterfly"></i></h1>
-    
-    <!-- ЭКРАН СЛАЙДОВ -->
-    <div id="slidesScreen">
-        <div class="counter" id="slideCounter">Слайд 1 / 17</div>
-        <div class="slide-area">
-            <div class="slide-content" id="slideContent"></div>
-            <div style="display: flex; justify-content: center; margin: 10px 0;">
-                <button class="speak-btn" id="speakSlideBtn"><i class="fas fa-volume-up"></i> Послушать</button>
-            </div>
+<div class="app-card">
+  <h1>🧠 ЕГЭ: Миссия «Спокоен»</h1>
+  <div class="subhead">⚡ 11 класс • продвинутая психологическая подготовка</div>
+  <div class="live-score-container">
+    <div class="live-score-badge">🧿 Очки спокойствия: <span id="liveScore">0</span></div>
+  </div>
+
+  <div class="content-area">
+    <!-- ЭТАП 1: ВВЕДЕНИЕ (6 слайдов) -->
+    <div id="step1" class="step-content active">
+      <div class="slide-container">
+        <div class="slide active" data-slide="1">
+          <h2>🧠 Нейробиология стресса на ЕГЭ</h2>
+          <div style="background: #1e293b; border-radius: 16px; padding: 12px; margin-bottom: 10px;">
+            <p style="font-weight: 700; margin-bottom: 6px;">Когда ты в стрессе, миндалевидное тело «перехватывает» управление у префронтальной коры:</p>
+            <ul><li>❌ Снижается рабочая память — сложнее вспомнить формулы.</li><li>❌ Ухудшается когнитивная гибкость — трудно решать нестандартные задачи.</li><li>❌ Включается реакция «бей или беги» — сердце колотится, мысли путаются.</li></ul>
+          </div>
+          <div class="quote-box">💡 Техники этого тренинга «возвращают» контроль префронтальной коре — твоему «процессору».</div>
         </div>
-        <div class="nav-buttons">
-            <button id="prevSlideBtn" disabled><i class="fas fa-arrow-left"></i> Назад</button>
-            <button id="nextSlideBtn">Далее <i class="fas fa-arrow-right"></i></button>
+        <div class="slide" data-slide="2">
+          <h2>📊 Статистика ЕГЭ-2025/26</h2>
+          <div class="stat-card"><span class="stat-highlight">39%</span><p>выпускников испытывают сильный стресс, причём 91% его источника — собственные ожидания[reference:0].</p></div>
+          <p>62% жалуются на упадок сил, а 55% — на нарушения сна[reference:1].</p>
         </div>
-        <div style="text-align: center; margin-top: 25px;">
-            <button id="goToTestBtn" class="small-btn" style="background: #ffb300; box-shadow:0 5px 0 #b26a00;"><i class="fas fa-pencil-alt"></i> ПЕРЕЙТИ К ТЕСТУ</button>
+        <div class="slide" data-slide="3">
+          <h2>📈 Факторы успеха</h2>
+          <ul style="font-size: 0.95rem; line-height: 1.5;">
+            <li><strong>85%</strong> — это твои знания.</li>
+            <li><strong>43%</strong> — твой уровень стресса во время экзамена[reference:2].</li>
+            <li>38% выпускников сталкиваются с эмоциональным выгоранием[reference:3].</li>
+          </ul>
+          <p style="margin-top: 10px;">Управление стрессом — это не просто «успокоиться», это повысить свой результат.</p>
         </div>
+        <div class="slide" data-slide="4">
+          <h2>💪 Ключевая установка</h2>
+          <div class="quote-box">«ЕГЭ — это не проверка твоей личности. Это всего лишь один из этапов, и у тебя есть несколько траекторий развития. Даже в случае неудачи жизнь не заканчивается»[reference:4].</div>
+          <p>Стресс — это нормальная реакция организма на значимое событие. Но ты можешь сделать его управляемым.</p>
+        </div>
+        <div class="slide" data-slide="5">
+          <h2>🗺️ План продвинутого тренинга</h2>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div><span class="badge">1</span> 📊 Тест на тревожность (продвинутый)</div>
+            <div><span class="badge">2</span> 🧘 6 мощных техник саморегуляции</div>
+            <div><span class="badge">3</span> 🧠 Стратегия «Анти-ЕГЭ-стресс»</div>
+            <div><span class="badge">4</span> 🏁 Закрепление и ресурс</div>
+          </div>
+        </div>
+        <div class="slide" data-slide="6">
+          <h2>⏱️ 20 минут инвестиций в себя</h2>
+          <p>В конце ты получишь не просто советы, а нейробиологически обоснованные инструменты, которые реально работают на экзамене.</p>
+          <p style="margin-top: 16px;">Готов(а) прокачать свою стрессоустойчивость?</p>
+        </div>
+      </div>
     </div>
 
-    <!-- ЭКРАН ТЕСТА -->
-    <div id="testScreen" class="hidden">
-        <h2><i class="fas fa-question-circle"></i> ПРОВЕРЬ СЕБЯ</h2>
-        <div class="test-container">
-            <div id="testHeader">
-                <span style="font-size:1.8rem; font-weight:bold;" id="questionNumDisplay">Вопрос 1 из 8</span>
-            </div>
-            <div class="question" id="questionText"></div>
-            <div class="options" id="optionsContainer"></div>
-            <div id="feedbackArea" class="feedback"></div>
-            <div class="test-nav">
-                <button id="checkAnswerBtn" class="small-btn" style="background:#0277bd; box-shadow:0 5px 0 #01416b;">✅ Проверить</button>
-                <button id="nextQuestionBtn" class="small-btn" disabled>Следующий ➡️</button>
-            </div>
-            <div style="margin-top:20px;">
-                <button id="backToSlidesFromTest" class="small-btn" style="background:#78909c; box-shadow:0 5px 0 #455a64;"><i class="fas fa-undo-alt"></i> К слайдам</button>
-            </div>
+    <!-- ЭТАП 2: ТЕСТ (5 вопросов + результат) -->
+    <div id="step2" class="step-content">
+      <div class="slide-container">
+        <div class="slide active" data-slide="1">
+          <div class="progress-indicator">Вопрос 1 из 5</div>
+          <div class="tool-card">
+            <p style="font-weight:600; margin-bottom:12px;">1. Чувствуешь ли ты, что даже при хорошей подготовке в день экзамена можешь «всё забыть»?</p>
+            <div class="test-options" data-q="0"></div>
+          </div>
         </div>
+        <div class="slide" data-slide="2">
+          <div class="progress-indicator">Вопрос 2 из 5</div>
+          <div class="tool-card">
+            <p style="font-weight:600; margin-bottom:12px;">2. Замечаешь ли ты у себя физические симптомы: дрожь, потливость, учащённое сердцебиение при мысли о ЕГЭ?</p>
+            <div class="test-options" data-q="1"></div>
+          </div>
+        </div>
+        <div class="slide" data-slide="3">
+          <div class="progress-indicator">Вопрос 3 из 5</div>
+          <div class="tool-card">
+            <p style="font-weight:600; margin-bottom:12px;">3. Сильно ли ты переживаешь из-за ожиданий родителей или учителей?</p>
+            <div class="test-options" data-q="2"></div>
+          </div>
+        </div>
+        <div class="slide" data-slide="4">
+          <div class="progress-indicator">Вопрос 4 из 5</div>
+          <div class="tool-card">
+            <p style="font-weight:600; margin-bottom:12px;">4. Случаются ли у тебя проблемы со сном или аппетитом в период подготовки?</p>
+            <div class="test-options" data-q="3"></div>
+          </div>
+        </div>
+        <div class="slide" data-slide="5">
+          <div class="progress-indicator">Вопрос 5 из 5</div>
+          <div class="tool-card">
+            <p style="font-weight:600; margin-bottom:12px;">5. Ловишь ли ты себя на мысли, что результат ЕГЭ определит всю твою дальнейшую жизнь?</p>
+            <div class="test-options" data-q="4"></div>
+          </div>
+        </div>
+        <div class="slide" data-slide="6">
+          <h2>📊 Результат теста</h2>
+          <div id="testResultDisplay" style="margin: 12px 0;"></div>
+          <button id="checkTestBtn">Проверить результат</button>
+          <button id="resetTestBtn" class="outline" style="margin-left: 8px;">Пройти заново</button>
+        </div>
+      </div>
     </div>
 
-    <!-- ЭКРАН РЕЗУЛЬТАТОВ -->
-    <div id="resultScreen" class="hidden">
-        <div class="result-screen">
-            <i class="fas fa-trophy" style="font-size:5rem; color:#f9a825;"></i>
-            <h2>Молодец!</h2>
-            <div style="font-size:2.5rem; margin:20px 0;" id="resultMessage"></div>
-            <button id="restartLessonBtn" class="small-btn" style="background:#4caf50; box-shadow:0 7px 0 #1b5e20; margin-top:20px;"><i class="fas fa-redo-alt"></i> Посмотреть ещё раз</button>
+    <!-- ЭТАП 3: УПРАЖНЕНИЯ (6 продвинутых техник) -->
+    <div id="step3" class="step-content">
+      <div class="slide-container">
+        <div class="slide active" data-slide="1">
+          <div class="progress-indicator">Техника 1 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>🟦</span> Дыхание 4-4-8-4</div>
+            <p><strong>Как делать:</strong> Вдох 4 сек, задержка 4 сек, выдох 8 сек, задержка 4 сек. Повтори 3-4 цикла[reference:5].</p>
+            <p><strong>Зачем:</strong> Активирует парасимпатическую нервную систему, замедляет сердцебиение и «выключает» режим паники. Идеально перед входом в аудиторию.</p>
+            <button class="complete-exercise" data-ex="1">✅ Выполнил(а) +10</button>
+            <span id="ex1Badge"></span>
+          </div>
         </div>
+        <div class="slide" data-slide="2">
+          <div class="progress-indicator">Техника 2 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>🧠</span> Техника эмоциональной свободы (Таппинг)</div>
+            <p><strong>Как делать:</strong> Легко постукивай подушечками пальцев по точкам: начало брови, внешний угол глаза, под глазом, под носом, подбородок, ключица, под мышкой. На каждой точке повторяй: «Да, я волнуюсь, но я принимаю себя и справлюсь»[reference:6].</p>
+            <p><strong>Зачем:</strong> Снижает уровень кортизола, перепрограммирует реакцию мозга на стресс. Исследования подтверждают эффективность[reference:7].</p>
+            <button class="complete-exercise" data-ex="2">✅ Выполнил(а) +20</button>
+            <span id="ex2Badge"></span>
+          </div>
+        </div>
+        <div class="slide" data-slide="3">
+          <div class="progress-indicator">Техника 3 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>👀</span> Десенсибилизация движением глаз (ДПДГ)</div>
+            <p><strong>Как делать:</strong> Рисуй глазами горизонтальную восьмёрку (знак бесконечности). Вращай по и против часовой стрелки. Делай резкие движения вправо-влево, вверх-вниз по 8 раз[reference:8].</p>
+            <p><strong>Зачем:</strong> Помогает мозгу «переработать» тревожные воспоминания и снизить эмоциональный заряд. Быстро восстанавливает баланс.</p>
+            <button class="complete-exercise" data-ex="3">✅ Выполнил(а) +15</button>
+            <span id="ex3Badge"></span>
+          </div>
+        </div>
+        <div class="slide" data-slide="4">
+          <div class="progress-indicator">Техника 4 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>💪</span> Прогрессивная мышечная релаксация</div>
+            <p><strong>Как делать:</strong> Последовательно напрягай на 5 сек и расслабляй группы мышц: кисти, предплечья, плечи, лицо, шея, спина, живот, ноги. Каждое напряжение на вдохе, расслабление на выдохе[reference:9].</p>
+            <p><strong>Зачем:</strong> Снимает телесные зажимы, которые усиливают тревогу. После практики приходит глубокое физическое расслабление[reference:10].</p>
+            <button class="complete-exercise" data-ex="4">✅ Выполнил(а) +15</button>
+            <span id="ex4Badge"></span>
+          </div>
+        </div>
+        <div class="slide" data-slide="5">
+          <div class="progress-indicator">Техника 5 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>⏱️</span> Ощути время (продвинутый уровень)</div>
+            <p><strong>Как делать:</strong> Нажми «Старт», закрой глаза. Постарайся почувствовать, когда пройдёт ровно 30 секунд. Нажми «Стоп». Сравни результат.</p>
+            <p><strong>Зачем:</strong> Тренирует осознанность и внутреннее чувство времени, помогает отвлечься от тревожных мыслей и «заземлиться».</p>
+            <div class="flex-row">
+              <button id="startTimerBtn" class="secondary">⏵ Старт (30 сек)</button>
+              <button id="stopTimerBtn" disabled>⏹ Стоп</button>
+            </div>
+            <div id="timeResult" style="margin: 8px 0;"></div>
+            <button class="complete-exercise" data-ex="5" id="ex5CompleteBtn" disabled>✅ Засчитать +20</button>
+            <span id="ex5Badge"></span>
+          </div>
+        </div>
+        <div class="slide" data-slide="6">
+          <div class="progress-indicator">Техника 6 из 6</div>
+          <div class="tool-card">
+            <div class="tool-title"><span>🌌</span> Визуализация «Ресурсное место силы»</div>
+            <p><strong>Как делать:</strong> Закрой глаза. Представь место, где ты чувствуешь себя максимально уверенно и спокойно. Детализируй его: что ты видишь, слышишь, чувствуешь кожей? Побудь там 1-2 минуты, наполняясь силой.</p>
+            <p><strong>Зачем:</strong> Создаёт «якорь» спокойствия, к которому можно быстро вернуться в стрессовой ситуации. Повышает самооценку и чувство контроля.</p>
+            <button class="complete-exercise" data-ex="6">✅ Выполнил(а) +10</button>
+            <span id="ex6Badge"></span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- ЭТАП 4: СТРАТЕГИИ -->
+    <div id="step4" class="step-content">
+      <h2>🧠 Продвинутая стратегия «Анти-ЕГЭ-стресс»</h2>
+      <div class="tool-card">
+        <div class="tool-title"><span>📅</span> За неделю до экзамена</div>
+        <ul><li><strong>День 1-2:</strong> повторение самых сложных тем, таппинг утром и вечером.</li>
+        <li><strong>День 3-4:</strong> пробный экзамен в условиях, приближенных к реальным, с использованием ДПДГ[reference:11].</li>
+        <li><strong>День 5-6:</strong> отдых, прогулка, визуализация «места силы».</li>
+        <li><strong>День 7:</strong> лёгкое повторение, прогрессивная релаксация, сон не менее 8 часов.</li></ul>
+      </div>
+      <div class="tool-card">
+        <div class="tool-title"><span>🧘</span> Утром перед ЕГЭ</div>
+        <ul><li>🔹 Питательный завтрак (сложные углеводы + белок).</li>
+        <li>🔹 3 цикла «дыхания 4-4-8-4».</li>
+        <li>🔹 Установка: «Я подготовлен. Я спокоен. Я контролирую ситуацию».</li></ul>
+      </div>
+      <div class="tool-card">
+        <div class="tool-title"><span>🚀</span> Прямо на экзамене</div>
+        <ul><li>🔹 Если накрывает паника — техника 5-4-3-2-1 (найди 5 предметов, 4 звука, 3 ощущения, 2 запаха, 1 вкус)[reference:12].</li>
+        <li>🔹 Застрял на сложном задании — переключись на следующее и вернись позже[reference:13].</li>
+        <li>🔹 Помни: у тебя есть запасной план, и это нормально[reference:14].</li></ul>
+      </div>
+      <div class="quote-box">💡 Помни: 43% успеха — это управление стрессом. Сегодня ты получил для этого мощные инструменты[reference:15].</div>
+    </div>
+
+    <!-- ЭТАП 5: ИТОГИ -->
+    <div id="step5" class="step-content">
+      <h2>🏁 Ты прошёл продвинутый тренинг!</h2>
+      <div style="background: #1e293b; color: white; border-radius: 20px; padding: 16px; text-align: center;">
+        <div style="font-size: 2.5rem;">🧠</div>
+        <div style="font-size: 2rem; font-weight: 800;" id="finalScore">0</div>
+        <div>очков спокойствия</div>
+      </div>
+      <p style="margin: 16px 0 8px;">Твой арсенал техник для ЕГЭ:</p>
+      <ul id="completedExList" style="margin-bottom: 8px;"></ul>
+      <div id="certMessage"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="prevBtn" class="outline" disabled>← Назад</button>
+    <button id="nextBtn">Дальше →</button>
+  </div>
+  <div class="footer-note">#класснаяпсихология • педагог-психолог • ЕГЭ 2026</div>
 </div>
 
 <script>
-    (function(){
-        "use strict";
+  (function(){
+    let calmPoints = 0;
+    let currentStep = 1;
+    const totalSteps = 5;
+    let ex1done = false, ex2done = false, ex3done = false, ex4done = false, ex5done = false, ex6done = false;
+    let testAnswers = [null, null, null, null, null];
+    let startTime = 0;
+    const optionLabels = ["Да", "Скорее да", "Скорее нет", "Нет"];
 
-        // ---------- СЛАЙДЫ (17 слайдов для 3 класса) ----------
-        const slides = [
-            { 
-                text: "Многообразие насекомых", 
-                icon: "🐞🐝🦋", 
-                extra: "Самая многочисленная группа животных на Земле: более 1 млн видов!",
-                isSpecial: false
-            },
-            { 
-                text: "Кто такие насекомые?", 
-                icon: "🔍", 
-                extra: "У всех насекомых 6 ног. Тело состоит из трёх частей: голова, грудь, брюшко.",
-                isSpecial: false
-            },
-            { 
-                text: "Строение насекомого", 
-                icon: "🐜", 
-                extra: "На голове — усики и глаза. К груди крепятся 6 ног и крылья. В брюшке — органы пищеварения.",
-                isSpecial: false
-            },
-            { 
-                text: "Где живут насекомые?", 
-                icon: "🌍", 
-                extra: "Везде! В почве, в воде, в воздухе, в лесах, на лугах и даже в наших домах.",
-                isSpecial: false
-            },
-            { 
-                text: "Чем питаются насекомые?", 
-                icon: "🌿🍖", 
-                extra: "Растительноядные едят растения. Хищные охотятся на других насекомых. Всеядные едят всё.",
-                isSpecial: false
-            },
-            { 
-                text: "Растительноядные", 
-                icon: "🐛🌱", 
-                extra: "Гусеницы, тля, колорадский жук. Они питаются листьями и соком растений.",
-                isSpecial: false
-            },
-            { 
-                text: "Хищники", 
-                icon: "🐞🕷️", 
-                extra: "Божья коровка поедает тлю. Стрекоза ловит комаров. Жужелица охотится на гусениц.",
-                isSpecial: false
-            },
-            { 
-                text: "Всеядные", 
-                icon: "🐜🍂", 
-                extra: "Муравьи едят и растения, и других насекомых. Тараканы тоже всеядны.",
-                isSpecial: false
-            },
-            { 
-                text: "Жизненный цикл бабочки", 
-                icon: "🐛➡️🦋", 
-                extra: "Стадии развития: яйцо → гусеница → куколка → бабочка.",
-                isStagesSlide: true 
-            },
-            { 
-                text: "Насекомые-опылители", 
-                icon: "🐝🌸", 
-                extra: "Пчёлы, шмели, бабочки переносят пыльцу с цветка на цветок. Без них не будет плодов!",
-                isSpecial: false
-            },
-            { 
-                text: "Общественные насекомые", 
-                icon: "🐜👑", 
-                extra: "Муравьи и пчёлы живут большими семьями. У них есть королева, рабочие и солдаты.",
-                isSpecial: false
-            },
-            { 
-                text: "Насекомые-вредители", 
-                icon: "🦗⚠️", 
-                extra: "Саранча, колорадский жук, тля. Они уничтожают урожай, и люди с ними борются.",
-                isSpecial: false
-            },
-            { 
-                text: "Полезные насекомые", 
-                icon: "🐞✅", 
-                extra: "Божья коровка, златоглазка, наездник. Они поедают вредителей и защищают наши сады!",
-                isSpecial: false
-            },
-            { 
-                text: "Маскировка", 
-                icon: "🦗🌿", 
-                extra: "Многие насекомые умеют прятаться. Палочник похож на веточку, а кузнечик — на лист.",
-                isSpecial: false
-            },
-            { 
-                text: "Интересные факты", 
-                icon: "💡", 
-                extra: "Стрекоза — самый быстрый летун (до 50 км/ч). Муравей может поднять вес в 50 раз больше своего!",
-                isSpecial: false
-            },
-            { 
-                text: "Берегите насекомых!", 
-                icon: "🤲❤️", 
-                extra: "Не ловите бабочек, не разрушайте муравейники. Насекомые — важная часть природы!",
-                isSpecial: false
-            },
-            { 
-                text: "Готовы к тесту?", 
-                icon: "📋✅", 
-                extra: "Сейчас проверим, что вы запомнили. Нажмите жёлтую кнопку!",
-                isSpecial: false
-            }
+    function addPoints(p) {
+      calmPoints += p;
+      document.getElementById('finalScore').textContent = calmPoints;
+      document.getElementById('liveScore').textContent = calmPoints;
+      const badge = document.querySelector('.live-score-badge');
+      if(badge) { badge.style.transform = 'scale(1.05)'; setTimeout(() => badge.style.transform = 'scale(1)', 100); }
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('step'+step).classList.add('active');
+      currentStep = step;
+      document.getElementById('prevBtn').disabled = (step === 1);
+      document.getElementById('nextBtn').textContent = step === totalSteps ? 'Завершить' : 'Дальше →';
+      if (step === 1 || step === 2 || step === 3) {
+        const container = document.querySelector('#step'+step+' .slide-container');
+        if (container) {
+          const slides = container.querySelectorAll('.slide');
+          slides.forEach((s, i) => { s.classList.remove('active'); if (i === 0) s.classList.add('active'); });
+        }
+      }
+      if (step === 5) {
+        const list = document.getElementById('completedExList');
+        list.innerHTML = '';
+        const exs = [
+          {done: ex1done, name: 'Дыхание 4-4-8-4'}, {done: ex2done, name: 'Таппинг (EFT)'},
+          {done: ex3done, name: 'ДПДГ (движение глаз)'}, {done: ex4done, name: 'Прогрессивная релаксация'},
+          {done: ex5done, name: 'Ощути время'}, {done: ex6done, name: 'Визуализация'}
         ];
+        exs.forEach(e => { if(e.done) { const li = document.createElement('li'); li.textContent = '✅ ' + e.name; list.appendChild(li); }});
+      }
+      if (step === 2) renderTestOptions();
+    }
 
-        // ---------- ТЕСТ (8 вопросов, усложнён для 3 класса) ----------
-        const questions = [
-            {
-                question: "Сколько ног у всех насекомых?",
-                options: ["4", "6", "8", "10"],
-                correct: 1
-            },
-            {
-                question: "Из каких частей состоит тело насекомого?",
-                options: ["Голова, грудь, брюшко", "Голова, туловище, хвост", "Голова, ноги, крылья", "Грудь, брюшко, хвост"],
-                correct: 0
-            },
-            {
-                question: "К какой группе по питанию относится божья коровка?",
-                options: ["Растительноядные", "Хищники", "Всеядные", "Паразиты"],
-                correct: 1
-            },
-            {
-                question: "Какие насекомые живут большими семьями с королевой?",
-                options: ["Бабочки", "Муравьи и пчёлы", "Кузнечики", "Жуки"],
-                correct: 1
-            },
-            {
-                question: "Зачем нужны насекомые-опылители?",
-                options: ["Чтобы было красиво", "Они переносят пыльцу, и появляются плоды", "Они едят вредителей", "Они делают мёд"],
-                correct: 1
-            },
-            {
-                question: "Какое насекомое маскируется под веточку?",
-                options: ["Кузнечик", "Палочник", "Бабочка", "Муравей"],
-                correct: 1
-            },
-            {
-                question: "В какой последовательности развивается бабочка?",
-                options: ["Бабочка → куколка → гусеница → яйцо", "Яйцо → гусеница → куколка → бабочка", "Куколка → яйцо → гусеница → бабочка", "Гусеница → яйцо → бабочка → куколка"],
-                correct: 1
-            },
-            {
-                question: "Какое насекомое считается опасным вредителем полей?",
-                options: ["Божья коровка", "Пчела", "Саранча", "Стрекоза"],
-                correct: 2
-            }
-        ];
+    function nextStep() {
+      if (currentStep < totalSteps) showStep(currentStep + 1);
+      else {
+        document.getElementById('certMessage').innerHTML = '<div style="background:#059669; padding:12px; border-radius:16px; margin-top:12px;">🎓 Поздравляем! Ты освоил продвинутые техники. Удачи на ЕГЭ!</div>';
+        document.getElementById('nextBtn').disabled = true;
+        addPoints(30); // Бонус за завершение продвинутого тренинга
+      }
+    }
 
-        // ---------- ПЕРЕМЕННЫЕ ----------
-        let currentSlideIndex = 0;
-        let currentQuestionIndex = 0;
-        let userAnswers = new Array(questions.length).fill(null);
-        let selectedOption = null;
+    function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
 
-        const slidesScreen = document.getElementById('slidesScreen');
-        const testScreen = document.getElementById('testScreen');
-        const resultScreen = document.getElementById('resultScreen');
-        const slideContent = document.getElementById('slideContent');
-        const slideCounter = document.getElementById('slideCounter');
-        const prevBtn = document.getElementById('prevSlideBtn');
-        const nextBtn = document.getElementById('nextSlideBtn');
-        const goToTestBtn = document.getElementById('goToTestBtn');
-        const speakSlideBtn = document.getElementById('speakSlideBtn');
-        const questionText = document.getElementById('questionText');
-        const optionsDiv = document.getElementById('optionsContainer');
-        const checkBtn = document.getElementById('checkAnswerBtn');
-        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
-        const feedbackArea = document.getElementById('feedbackArea');
-        const questionNumDisplay = document.getElementById('questionNumDisplay');
-        const backToSlidesFromTest = document.getElementById('backToSlidesFromTest');
-        const restartLessonBtn = document.getElementById('restartLessonBtn');
-        const resultMessage = document.getElementById('resultMessage');
+    function nextSlide(container) {
+      const slides = container.querySelectorAll('.slide');
+      const active = container.querySelector('.slide.active');
+      const idx = Array.from(slides).indexOf(active);
+      if (idx < slides.length - 1) {
+        active.classList.remove('active');
+        slides[idx + 1].classList.add('active');
+      } else nextStep();
+    }
 
-        // ---------- ОТРИСОВКА СЛАЙДОВ ----------
-        function renderSlide(index) {
-            const slide = slides[index];
-            let html = `<div class="slide-icon img-emojii">${slide.icon}</div>`;
-            
-            if (slide.isStagesSlide) {
-                html += `<div class="slide-text">${slide.text}</div>`;
-                html += `<div class="stages">
-                    <div class="stage-item"><span class="stage-emoji">🥚</span><span class="stage-text">Яйцо</span></div>
-                    <div class="arrow-symbol">➡️</div>
-                    <div class="stage-item"><span class="stage-emoji">🐛</span><span class="stage-text">Гусеница</span></div>
-                    <div class="arrow-symbol">➡️</div>
-                    <div class="stage-item"><span class="stage-emoji">🕰️</span><span class="stage-text">Куколка</span></div>
-                    <div class="arrow-symbol">➡️</div>
-                    <div class="stage-item"><span class="stage-emoji">🦋✨</span><span class="stage-text">Бабочка</span></div>
-                </div>`;
-                html += `<div class="fact-badge"><i class="fas fa-star"></i> Сначала яйцо, потом гусеница, затем куколка, и наконец — прекрасная бабочка!</div>`;
-            } else {
-                html += `<div class="slide-text">${slide.text}</div>`;
-                if (slide.extra) {
-                    html += `<div class="fact-badge"><i class="fas fa-star"></i> ${slide.extra}</div>`;
-                }
-            }
-            
-            slideContent.innerHTML = html;
-            slideCounter.textContent = `Слайд ${index+1} / ${slides.length}`;
-            prevBtn.disabled = (index === 0);
-            nextBtn.disabled = (index === slides.length - 1);
-            if (index === slides.length - 1) {
-                nextBtn.textContent = '🏁 Конец';
-            } else {
-                nextBtn.innerHTML = 'Далее <i class="fas fa-arrow-right"></i>';
-            }
-        }
+    function prevSlide(container) {
+      const slides = container.querySelectorAll('.slide');
+      const active = container.querySelector('.slide.active');
+      const idx = Array.from(slides).indexOf(active);
+      if (idx > 0) {
+        active.classList.remove('active');
+        slides[idx - 1].classList.add('active');
+      } else prevStep();
+    }
 
-        function nextSlide() {
-            if (currentSlideIndex < slides.length - 1) {
-                currentSlideIndex++;
-                renderSlide(currentSlideIndex);
-            }
-        }
+    function renderTestOptions() {
+      for (let q=0; q<5; q++) {
+        const cont = document.querySelector(`.test-options[data-q="${q}"]`);
+        if (!cont) continue;
+        cont.innerHTML = '';
+        optionLabels.forEach((label, optIdx) => {
+          const btn = document.createElement('button');
+          btn.textContent = label;
+          btn.addEventListener('click', function() {
+            cont.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            testAnswers[q] = optIdx;
+          });
+          if (testAnswers[q] === optIdx) btn.classList.add('selected');
+          cont.appendChild(btn);
+        });
+      }
+    }
 
-        function prevSlide() {
-            if (currentSlideIndex > 0) {
-                currentSlideIndex--;
-                renderSlide(currentSlideIndex);
-            }
-        }
+    function calculateResult() {
+      let score = 0;
+      for (let i=0; i<5; i++) if (testAnswers[i] !== null) score += (3 - testAnswers[i]);
+      const percent = Math.round((score / 15) * 100);
+      let msg = percent >= 70 ? 'Высокий уровень тревожности. Рекомендуется освоить все техники.' : (percent >= 40 ? 'Средний уровень. Техники помогут чувствовать себя увереннее.' : 'Низкий уровень. Ты хорошо справляешься, но продвинутые техники улучшат результат.');
+      document.getElementById('testResultDisplay').innerHTML = `Результат: ${percent}% тревожности. ${msg}`;
+      addPoints(20);
+      document.getElementById('checkTestBtn').disabled = true;
+    }
 
-        // Озвучка слайда
-        function speakSlideText() {
-            const slide = slides[currentSlideIndex];
-            let textToSpeak = slide.text + ". ";
-            if (slide.isStagesSlide) {
-                textToSpeak += "Сначала появляется яйцо. Из него вылупляется гусеница. Затем гусеница превращается в куколку. А из куколки выходит прекрасная бабочка!";
-            } else if (slide.extra) {
-                textToSpeak += slide.extra;
-            }
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ru-RU';
-                utterance.rate = 0.9;
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Озвучивание не поддерживается.");
-            }
-        }
+    function resetTest() {
+      testAnswers = [null, null, null, null, null];
+      renderTestOptions();
+      document.getElementById('testResultDisplay').innerHTML = '';
+      document.getElementById('checkTestBtn').disabled = false;
+    }
 
-        // ---------- ТЕСТ ----------
-        function showTestScreen() {
-            slidesScreen.classList.add('hidden');
-            testScreen.classList.remove('hidden');
-            resultScreen.classList.add('hidden');
-            resetTestState();
-            renderQuestion(currentQuestionIndex);
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTestOptions();
+      addPoints(0);
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
 
-        function resetTestState() {
-            currentQuestionIndex = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            selectedOption = null;
-            nextQuestionBtn.disabled = true;
-            checkBtn.disabled = false;
-            feedbackArea.innerHTML = '';
-            feedbackArea.className = 'feedback';
-        }
+      nextBtn.addEventListener('click', () => {
+        const active = document.querySelector('.step-content.active');
+        const slider = active.querySelector('.slide-container');
+        slider ? nextSlide(slider) : (currentStep < totalSteps ? nextStep() : (document.getElementById('certMessage').innerHTML = '<div style="background:#059669; padding:12px; border-radius:16px;">🎓 Поздравляем! Удачи на ЕГЭ!</div>', nextBtn.disabled = true, addPoints(30)));
+      });
 
-        function renderQuestion(qIndex) {
-            const q = questions[qIndex];
-            questionText.textContent = q.question;
-            questionNumDisplay.textContent = `Вопрос ${qIndex+1} из ${questions.length}`;
-            let optsHtml = '';
-            q.options.forEach((opt, idx) => {
-                const selectedClass = (userAnswers[qIndex] === idx) ? 'selected' : '';
-                optsHtml += `<button class="option-btn ${selectedClass}" data-opt-index="${idx}">${opt}</button>`;
-            });
-            optionsDiv.innerHTML = optsHtml;
-            
-            if (userAnswers[qIndex] !== null) {
-                checkBtn.disabled = true;
-                const isCorrect = (userAnswers[qIndex] === q.correct);
-                showFeedback(isCorrect);
-                nextQuestionBtn.disabled = false;
-            } else {
-                checkBtn.disabled = false;
-                nextQuestionBtn.disabled = true;
-                feedbackArea.innerHTML = '';
-                feedbackArea.className = 'feedback';
-                selectedOption = null;
-            }
-            
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    if (userAnswers[qIndex] !== null) return;
-                    const idx = parseInt(btn.dataset.optIndex);
-                    selectedOption = idx;
-                    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                });
-            });
-        }
+      prevBtn.addEventListener('click', () => {
+        const active = document.querySelector('.step-content.active');
+        const slider = active.querySelector('.slide-container');
+        slider ? prevSlide(slider) : prevStep();
+      });
 
-        function showFeedback(isCorrect) {
-            const q = questions[currentQuestionIndex];
-            if (isCorrect) {
-                feedbackArea.innerHTML = '<i class="fas fa-check-circle"></i> Правильно! Молодец!';
-                feedbackArea.className = 'feedback correct-feedback';
-            } else {
-                feedbackArea.innerHTML = `<i class="fas fa-times-circle"></i> Неверно. Правильный ответ: ${q.options[q.correct]}`;
-                feedbackArea.className = 'feedback wrong-feedback';
-            }
-        }
+      document.getElementById('checkTestBtn').addEventListener('click', calculateResult);
+      document.getElementById('resetTestBtn').addEventListener('click', resetTest);
 
-        function checkAnswer() {
-            const qIdx = currentQuestionIndex;
-            if (userAnswers[qIdx] !== null) return;
-            if (selectedOption === null) { alert("Выбери ответ!"); return; }
-            const q = questions[qIdx];
-            const isCorrect = (selectedOption === q.correct);
-            userAnswers[qIdx] = selectedOption;
-            showFeedback(isCorrect);
-            checkBtn.disabled = true;
-            nextQuestionBtn.disabled = false;
-        }
+      document.querySelectorAll('.complete-exercise').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const ex = this.dataset.ex;
+          if (ex === '1' && !ex1done) { ex1done = true; addPoints(10); document.getElementById('ex1Badge').textContent = ' ✅'; this.disabled = true; }
+          else if (ex === '2' && !ex2done) { ex2done = true; addPoints(20); document.getElementById('ex2Badge').textContent = ' ✅'; this.disabled = true; }
+          else if (ex === '3' && !ex3done) { ex3done = true; addPoints(15); document.getElementById('ex3Badge').textContent = ' ✅'; this.disabled = true; }
+          else if (ex === '4' && !ex4done) { ex4done = true; addPoints(15); document.getElementById('ex4Badge').textContent = ' ✅'; this.disabled = true; }
+          else if (ex === '5' && !ex5done) { ex5done = true; addPoints(20); document.getElementById('ex5Badge').textContent = ' ✅'; this.disabled = true; }
+          else if (ex === '6' && !ex6done) { ex6done = true; addPoints(10); document.getElementById('ex6Badge').textContent = ' ✅'; this.disabled = true; }
+        });
+      });
 
-        function nextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                selectedOption = null;
-                renderQuestion(currentQuestionIndex);
-            } else {
-                finishTest();
-            }
-        }
-
-        function finishTest() {
-            testScreen.classList.add('hidden');
-            resultScreen.classList.remove('hidden');
-            const correctCount = userAnswers.reduce((acc, ans, idx) => acc + (ans === questions[idx].correct ? 1 : 0), 0);
-            let msg = `Ты ответил правильно на ${correctCount} из ${questions.length}. `;
-            if (correctCount === questions.length) msg += "Отлично! Ты всё запомнил!";
-            else if (correctCount >= 5) msg += "Хорошо! Но можно повторить слайды.";
-            else msg += "Давай ещё раз посмотрим слайды, и всё получится!";
-            resultMessage.textContent = msg;
-        }
-
-        function goBackToSlides() {
-            testScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            slidesScreen.classList.remove('hidden');
-        }
-
-        function restartLesson() {
-            currentSlideIndex = 0;
-            renderSlide(0);
-            slidesScreen.classList.remove('hidden');
-            testScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            resetTestState();
-        }
-
-        // ---------- ИНИЦИАЛИЗАЦИЯ ----------
-        function init() {
-            renderSlide(0);
-            prevBtn.addEventListener('click', prevSlide);
-            nextBtn.addEventListener('click', nextSlide);
-            speakSlideBtn.addEventListener('click', speakSlideText);
-            goToTestBtn.addEventListener('click', showTestScreen);
-            checkBtn.addEventListener('click', checkAnswer);
-            nextQuestionBtn.addEventListener('click', nextQuestion);
-            backToSlidesFromTest.addEventListener('click', goBackToSlides);
-            restartLessonBtn.addEventListener('click', restartLesson);
-        }
-        init();
-    })();
+      const startBtn = document.getElementById('startTimerBtn'), stopBtn = document.getElementById('stopTimerBtn'), timeRes = document.getElementById('timeResult'), ex5btn = document.getElementById('ex5CompleteBtn');
+      startBtn.addEventListener('click', () => { startTime = Date.now(); startBtn.disabled = true; stopBtn.disabled = false; timeRes.textContent = 'Таймер запущен. Закрой глаза.'; });
+      stopBtn.addEventListener('click', () => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        const diff = Math.abs(elapsed - 30);
+        let fb = diff < 1.5 ? '😲 Потрясающе! Ты отлично чувствуешь время!' : (diff < 4 ? '👍 Очень хорошо!' : (diff < 6 ? '🙂 Неплохо, можно потренироваться.' : '🧘 Попробуй ещё раз, это развивает осознанность.'));
+        timeRes.innerHTML = `Твоё время: ${elapsed.toFixed(1)} сек. ${fb}`;
+        stopBtn.disabled = true; startBtn.disabled = false; ex5btn.disabled = false;
+      });
+      ex5btn.addEventListener('click', function() { if (!ex5done) { ex5done = true; addPoints(20); document.getElementById('ex5Badge').textContent = ' ✅'; this.disabled = true; } });
+    });
+  })();
 </script>
 </body>
 </html>
